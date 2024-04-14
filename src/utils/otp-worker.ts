@@ -1,5 +1,6 @@
 import Redis from "ioredis";
 import nodemailer from "nodemailer";
+import otpTemplate from "./forgetPassword/forgetpasswordmail";
 import {
   SMTP_EMAIL,
   SMTP_PASSWORD,
@@ -67,7 +68,7 @@ const sendMail = async (email: string, otp: number) => {
       from: process.env.EMAIL,
       to: email,
       subject: "OTP for password reset",
-      text: `Your OTP for password reset is ${otp}`,
+      text: otpTemplate(otp),
     };
 
     const response = await transporter.sendMail(mailOptions);
